@@ -244,7 +244,6 @@ const Desktop1 = () => {
       <div className="complete-wrapper1">
         <div className="complete">complete</div>
       </div>
-      <div className="complete-wrapper2">
         <div className="complete">complete</div>
       </div>
       <div className="credit-card">Credit card</div>
