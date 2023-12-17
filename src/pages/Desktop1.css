@@ -32,6 +32,15 @@
   height: 42px;
   color: var(--color-gray-200);
 }
+.search-parent input{
+  height: 100%;
+  width: 80%;
+  margin-left: 1%;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
 .cameron-rogers {
   position: absolute;
   top: 18px;
@@ -108,6 +117,15 @@
   overflow: hidden;
   color: var(--color-gray-200);
 }
+.search-for-order-id-status-et-parent input{
+  height: 100%;
+  width: 90%;
+  margin-left: 1%;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
 .filters {
   position: absolute;
   top: 1px;
@@ -125,12 +143,21 @@
 }
 .filters-parent {
   top: 10px;
-  left: 358px;
+  left: 320px;
   border-radius: var(--br-8xs);
   background-color: var(--color-white);
   border: 1px solid var(--color-gray-300);
   box-sizing: border-box;
-  width: 75px;
+  width: 115px;
+}
+.filters-parent select{
+  padding-left: 25px;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
 }
 .attachment {
   position: absolute;
@@ -156,6 +183,7 @@
   box-sizing: border-box;
   width: 100px;
   height: 20px;
+  cursor: pointer;
 }
 .div,
 .export {
@@ -181,6 +209,7 @@
   width: 75px;
   height: 20px;
   overflow: hidden;
+  cursor: pointer;
 }
 .miexport-icon {
   top: 12px;
@@ -533,6 +562,7 @@
   position: absolute;
   top: 410px;
   font-size: var(--font-size-base);
+  cursor: pointer;
 }
 .all-orders {
   left: 401px;

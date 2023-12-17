@@ -1,13 +1,101 @@
 import "./Desktop1.css";
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Desktop1 = () => {
+    const [isVisible, setIsVisible] = useState(true);
+    const [isVisible1, setIsVisible1] = useState(true);
+    const [isVisible2, setIsVisible2] = useState(true);
+    const [searchValue, setSearchValue] = useState("");
+    const [count, setCount] = useState(1425);
+    const [count1, setCount1] = useState(2167);
+    const toggleVisibility = () => {
+      setIsVisible(true);
+      setIsVisible1(false);
+      setIsVisible2(false);
+    };
+    const toggleVisibility1 = () => {
+      setIsVisible1(true);
+      setIsVisible(false);
+      setIsVisible2(false);
+    };
+    const toggleVisibility2 = () => {
+      setIsVisible2(true);
+      setIsVisible(false);
+      setIsVisible1(false);
+    };
+    const toggleVisibility3 = () => {
+      setIsVisible2(true);
+      setIsVisible(true);
+      setIsVisible1(true);
+    };
+
+    const handleSelectChange = (selectedValue) => {
+      console.log('Selected value:', selectedValue);
+      if (selectedValue === 'allOrders') {
+        toggleVisibility3()
+      }
+      else if (selectedValue === 'completed') {
+        toggleVisibility1() 
+
+      }
+      else if (selectedValue === 'inProgress'){
+        toggleVisibility2()
+      }
+      else{
+        toggleVisibility()
+      }
+
+    };
+
+    let stringToCompare = 'allorders'; 
+    let stringToCompare1 = 'completed';
+    let stringToCompare2 = 'inprogress';
+    let stringToCompare3 = 'canceled';
+
+    const handleSearchChange = (event) => {
+      setSearchValue(event.target.value);
+      
+    };
+    const clearSearchInput = () => {
+      setSearchValue('');
+    };
+  
+    const compareSearch = () => {
+      if (searchValue.toLowerCase() === stringToCompare.toLowerCase()) {
+        toggleVisibility3()
+      }
+      else if (searchValue.toLowerCase() === stringToCompare1.toLowerCase()){
+        toggleVisibility1() 
+      } 
+      else if (searchValue.toLowerCase() === stringToCompare2.toLowerCase()){
+        toggleVisibility2() 
+      }
+      else if (searchValue.toLowerCase() === stringToCompare3.toLowerCase()){
+        toggleVisibility()
+      }
+      clearSearchInput();
+    };
+
+    
+
+    useEffect(() => {
+      const incrementCount = () => {
+        setCount((prevCount) => prevCount + 1);
+        setCount1((prevCount) => prevCount + 1);
+      };
+      const intervalId = setInterval(incrementCount, 5000)
+      return () => clearInterval(intervalId);
+    }, []);
+
   return (
     <div className="desktop-1">
       <div className="desktop-1-child" />
       <div className="frame-parent">
-        <div className="search-parent">
-          <b className="search">Search...</b>
-          <img
+        <div className="search-parent"> 
+          <input type="search" placeholder="search..."  onChange={handleSearchChange} ></input>
+          <img onClick={compareSearch}
             className="basilsearch-outline-icon"
             alt=""
             src="/basilsearchoutline.svg"
@@ -25,15 +113,21 @@ const Desktop1 = () => {
       </div>
       <div className="frame-group">
         <div className="search-for-order-id-status-et-parent">
-          <b className="search-for-order">Search for order ID, Status etc...</b>
-          <img
+          <input type="search" placeholder="Search for order ID, Status etc..." value={searchValue} onChange={handleSearchChange}></input>
+          <img onClick={compareSearch}
             className="basilsearch-outline-icon1"
             alt=""
             src="/basilsearchoutline1.svg"
           />
         </div>
         <div className="filters-parent">
-          <div className="filters">Filters</div>
+          <select onChange={(e) => handleSelectChange(e.target.value)}>
+            <option></option>
+            <option value="allOrders">All Orders</option>
+            <option value="completed">Completed</option>
+            <option value="inProgress">In Progress</option>
+            <option value="canceled">Canceled</option>
+          </select>
           <img className="ionfilter-icon" alt="" src="/ionfilter.svg" />
         </div>
         <div className="attachment-parent">
@@ -54,7 +148,7 @@ const Desktop1 = () => {
         <div className="frame-container">
           <img className="frame-item" alt="" src="/frame-7.svg" />
           <b className="customer">Customer</b>
-          <b className="b1">1425</b>
+          <b className="b1">{count}</b>
           <div className="parent">
             <b className="b2">+21%</b>
             <b className="increase">Increase</b>
@@ -65,7 +159,7 @@ const Desktop1 = () => {
         <div className="frame-container">
           <img className="frame-item" alt="" src="/frame-71.svg" />
           <b className="customer">Monthly Revenue</b>
-          <b className="b1">$2,167</b>
+          <b className="b1">${count1}</b>
           <div className="group">
             <b className="b2">568</b>
             <b className="increase">Orders</b>
@@ -131,10 +225,10 @@ const Desktop1 = () => {
           <div className="div6">82/100</div>
         </div>
       </div>
-      <b className="all-orders">All Orders</b>
-      <div className="completed">Completed</div>
-      <div className="in-progress">In Progress</div>
-      <div className="canceled">Canceled</div>
+      <b className="all-orders"onClick={toggleVisibility3}>All Orders</b>
+      <div className="completed"onClick={toggleVisibility1}>Completed</div>
+      <div className="in-progress" onClick={toggleVisibility2}>In Progress</div>
+      <div className="canceled" onClick={toggleVisibility}>Canceled</div>
       <div className="desktop-1-item" />
       <div className="desktop-1-child1" />
       <div className="order-id">Order ID</div>
@@ -151,113 +245,114 @@ const Desktop1 = () => {
       <div className="div11">{`>`}</div>
       <div className="div12">{`>`}</div>
       <div className="div13">{`>`}</div>
-      <div className="htes4325">HTES4325</div>
-      <div className="sdwe6321">SDWE6321</div>
-      <div className="ferw4793">FERW4793</div>
-      <div className="aqwe3252">AQWE3252</div>
-      <div className="jgtr8086">JGTR8086</div>
-      <div className="dwsn5127">DWSN5127</div>
-      <div className="klut7146">KLUT7146</div>
-      <div className="hmbc5095">HMBC5095</div>
-      <div className="rvcz2985">RVCZ2985</div>
-      <div className="dwck5647">DWCK5647</div>
-      <div className="klfd1642">KLFD1642</div>
-      <div className="zswe3672">ZSWE3672</div>
-      <div className="randy-michael">Randy Michael</div>
-      <div className="clement-mike">Clement Mike</div>
-      <div className="tory-victor">Tory Victor</div>
-      <div className="fowler-antony">Fowler Antony</div>
-      <div className="hector-bellerin">Hector Bellerin</div>
-      <div className="johnny-cage">Johnny Cage</div>
-      <div className="joyce-winters">Joyce Winters</div>
-      <div className="amber-cathy">Amber Cathy</div>
-      <div className="danny-neil">Danny Neil</div>
-      <div className="simpson-debby">Simpson Debby</div>
-      <div className="florina-dora">Florina Dora</div>
-      <div className="jose-moore">Jose Moore</div>
-      <div className="div14">07.12.2023</div>
-      <div className="div15">23.10.2023</div>
-      <div className="div16">21.06.2023</div>
-      <div className="div17">07.11.2023</div>
-      <div className="div18">17.12.2023</div>
-      <div className="div19">18.07.2023</div>
-      <div className="div20">19.06.2023</div>
-      <div className="div21">05.02.2023</div>
-      <div className="div22">11.06.2023</div>
-      <div className="div23">09.09.2023</div>
-      <div className="div24">19.04.2023</div>
-      <div className="div25">07.03.2023</div>
-      <div className="macbook-pro">Macbook pro</div>
-      <div className="puma-shirt">Puma Shirt</div>
-      <div className="nike-bag">Nike Bag</div>
-      <div className="air-freshner">Air freshner</div>
-      <div className="kg-dumbbell">50KG Dumbbell</div>
-      <div className="mary-kay">Mary kay</div>
-      <div className="hisense-tv">55’’ Hisense TV</div>
-      <div className="blender">Blender</div>
-      <div className="leather-shoe">Leather shoe</div>
-      <div className="gucci-bag">Gucci bag</div>
-      <div className="silver-necklace">Silver necklace</div>
-      <div className="zenik-wristwatch">Zenik wristwatch</div>
-      <div className="div26">$650.00</div>
-      <div className="div27">$230.00</div>
-      <div className="div28">$184.30</div>
-      <div className="div29">$21.80</div>
-      <div className="div30">$76.99</div>
-      <div className="div31">$26.99</div>
-      <div className="div32">$312.00</div>
-      <div className="div33">$56.00</div>
-      <div className="div34">$19.00</div>
-      <div className="div35">$531.45</div>
-      <div className="div36">$4312.00</div>
-      <div className="div37">$5321.00</div>
+      <div className="htes4325"style={{ display: isVisible1 ? 'block' : 'none' }}>HTES4325</div>
+      <div className="sdwe6321"style={{ display: isVisible2 ? 'block' : 'none' }}>SDWE6321</div>
+      <div className="ferw4793"style={{ display: isVisible1 ? 'block' : 'none' }}>FERW4793</div>
+      <div className="aqwe3252" style={{ display: isVisible ? 'block' : 'none' }}>AQWE3252</div>
+      <div className="jgtr8086"style={{ display: isVisible1 ? 'block' : 'none' }}>JGTR8086</div>
+      <div className="dwsn5127"style={{ display: isVisible2 ? 'block' : 'none' }}>DWSN5127</div>
+      <div className="klut7146" style={{ display: isVisible ? 'block' : 'none' }}>KLUT7146</div>
+      <div className="hmbc5095"style={{ display: isVisible2 ? 'block' : 'none' }}>HMBC5095</div>
+      <div className="rvcz2985"style={{ display: isVisible1 ? 'block' : 'none' }}>RVCZ2985</div>
+      <div className="dwck5647"style={{ display: isVisible ? 'block' : 'none' }}>DWCK5647</div>
+      <div className="klfd1642"style={{ display: isVisible1 ? 'block' : 'none' }}>KLFD1642</div>
+      <div className="zswe3672"style={{ display: isVisible2 ? 'block' : 'none' }}>ZSWE3672</div>
+      <div className="randy-michael"style={{ display: isVisible1 ? 'block' : 'none' }}>Randy Michael</div>
+      <div className="clement-mike"style={{ display: isVisible2 ? 'block' : 'none' }}>Clement Mike</div>
+      <div className="tory-victor"style={{ display: isVisible1 ? 'block' : 'none' }}>Tory Victor</div>
+      <div className="fowler-antony"style={{ display: isVisible ? 'block' : 'none' }}>Fowler Antony</div>
+      <div className="hector-bellerin"style={{ display: isVisible1 ? 'block' : 'none' }}>Hector Bellerin</div>
+      <div className="johnny-cage"style={{ display: isVisible2 ? 'block' : 'none' }}>Johnny Cage</div>
+      <div className="joyce-winters"style={{ display: isVisible ? 'block' : 'none' }}>Joyce Winters</div>
+      <div className="amber-cathy"style={{ display: isVisible2 ? 'block' : 'none' }}>Amber Cathy</div>
+      <div className="danny-neil"style={{ display: isVisible1 ? 'block' : 'none' }}>Danny Neil</div>
+      <div className="simpson-debby"style={{ display: isVisible ? 'block' : 'none' }}>Simpson Debby</div>
+      <div className="florina-dora"style={{ display: isVisible1 ? 'block' : 'none' }}>Florina Dora</div>
+      <div className="jose-moore"style={{ display: isVisible2 ? 'block' : 'none' }}>Jose Moore</div>
+      <div className="div14"style={{ display: isVisible1 ? 'block' : 'none' }}>07.12.2023</div>
+      <div className="div15"style={{ display: isVisible2 ? 'block' : 'none' }}>23.10.2023</div>
+      <div className="div16"style={{ display: isVisible1 ? 'block' : 'none' }}>21.06.2023</div>
+      <div className="div17"style={{ display: isVisible ? 'block' : 'none' }}>07.11.2023</div>
+      <div className="div18"style={{ display: isVisible1 ? 'block' : 'none' }}>17.12.2023</div>
+      <div className="div19"style={{ display: isVisible2 ? 'block' : 'none' }}>18.07.2023</div>
+      <div className="div20"style={{ display: isVisible ? 'block' : 'none' }}>19.06.2023</div>
+      <div className="div21"style={{ display: isVisible2 ? 'block' : 'none' }}>05.02.2023</div>
+      <div className="div22"style={{ display: isVisible1 ? 'block' : 'none' }}>11.06.2023</div>
+      <div className="div23"style={{ display: isVisible ? 'block' : 'none' }}>09.09.2023</div>
+      <div className="div24"style={{ display: isVisible1 ? 'block' : 'none' }}>19.04.2023</div>
+      <div className="div25"style={{ display: isVisible2 ? 'block' : 'none' }}>07.03.2023</div>
+      <div className="macbook-pro"style={{ display: isVisible1 ? 'block' : 'none' }}>Macbook pro</div>
+      <div className="puma-shirt"style={{ display: isVisible2 ? 'block' : 'none' }}>Puma Shirt</div>
+      <div className="nike-bag"style={{ display: isVisible1 ? 'block' : 'none' }}>Nike Bag</div>
+      <div className="air-freshner"style={{ display: isVisible ? 'block' : 'none' }}>Air freshner</div>
+      <div className="kg-dumbbell"style={{ display: isVisible1 ? 'block' : 'none' }}>50KG Dumbbell</div>
+      <div className="mary-kay"style={{ display: isVisible2 ? 'block' : 'none' }}>Mary kay</div>
+      <div className="hisense-tv"style={{ display: isVisible ? 'block' : 'none' }}>55’’ Hisense TV</div>
+      <div className="blender"style={{ display: isVisible2 ? 'block' : 'none' }}>Blender</div>
+      <div className="leather-shoe"style={{ display: isVisible1 ? 'block' : 'none' }}>Leather shoe</div>
+      <div className="gucci-bag"style={{ display: isVisible ? 'block' : 'none' }}>Gucci bag</div>
+      <div className="silver-necklace"style={{ display: isVisible1 ? 'block' : 'none' }}>Silver necklace</div>
+      <div className="zenik-wristwatch"style={{ display: isVisible2 ? 'block' : 'none' }}>Zenik wristwatch</div>
+      <div className="div26"style={{ display: isVisible1 ? 'block' : 'none' }}>$650.00</div>
+      <div className="div27"style={{ display: isVisible2 ? 'block' : 'none' }}>$230.00</div>
+      <div className="div28"style={{ display: isVisible1 ? 'block' : 'none' }}>$184.30</div>
+      <div className="div29"style={{ display: isVisible ? 'block' : 'none' }}>$21.80</div>
+      <div className="div30"style={{ display: isVisible1 ? 'block' : 'none' }}>$76.99</div>
+      <div className="div31"style={{ display: isVisible2 ? 'block' : 'none' }}>$26.99</div>
+      <div className="div32"style={{ display: isVisible ? 'block' : 'none' }}>$312.00</div>
+      <div className="div33"style={{ display: isVisible2 ? 'block' : 'none' }}>$56.00</div>
+      <div className="div34"style={{ display: isVisible1 ? 'block' : 'none' }}>$19.00</div>
+      <div className="div35"style={{ display: isVisible ? 'block' : 'none' }}>$531.45</div>
+      <div className="div36"style={{ display: isVisible1 ? 'block' : 'none' }}>$4312.00</div>
+      <div className="div37"style={{ display: isVisible2 ? 'block' : 'none' }}>$5321.00</div>
       <div className="complete-wrapper">
-        <div className="complete">complete</div>
+        <div className="complete"style={{ display: isVisible1 ? 'block' : 'none' }}>complete</div>
       </div>
-      <div className="in-progress-wrapper">
+      <div className="in-progress-wrapper"style={{ display: isVisible2 ? 'block' : 'none' }}>
         <div className="in-progress1">In progress</div>
       </div>
-      <div className="in-progress-container">
+      <div className="in-progress-container"style={{ display: isVisible2 ? 'block' : 'none' }}>
         <div className="in-progress1">In progress</div>
       </div>
-      <div className="in-progress-frame">
+      <div className="in-progress-frame"style={{ display: isVisible2 ? 'block' : 'none' }}>
         <div className="in-progress1">In progress</div>
       </div>
-      <div className="in-progress-wrapper1">
+      <div className="in-progress-wrapper1"style={{ display: isVisible2 ? 'block' : 'none' }}>
         <div className="in-progress1">In progress</div>
       </div>
-      <div className="complete-container">
+      <div className="complete-container"style={{ display: isVisible1 ? 'block' : 'none' }}>
         <div className="complete">complete</div>
       </div>
-      <div className="canceled-wrapper">
-        <div className="complete">Canceled</div>
+      <div className="canceled-wrapper"style={{ display: isVisible ? 'block' : 'none' }}>
+        <div className="complete" >Canceled</div>
       </div>
-      <div className="canceled-container">
-        <div className="complete">Canceled</div>
+      <div className="canceled-container"style={{ display: isVisible ? 'block' : 'none' }}>
+        <div className="complete" >Canceled</div>
       </div>
-      <div className="canceled-frame">
-        <div className="complete">Canceled</div>
+      <div className="canceled-frame"style={{ display: isVisible ? 'block' : 'none' }}>
+        <div className="complete" >Canceled</div>
       </div>
-      <div className="complete-frame">
+      <div className="complete-frame"style={{ display: isVisible1 ? 'block' : 'none' }}>
         <div className="complete">complete</div>
       </div>
-      <div className="complete-wrapper1">
+      <div className="complete-wrapper1"style={{ display: isVisible1 ? 'block' : 'none' }}>
         <div className="complete">complete</div>
       </div>
-        <div className="complete">complete</div>
+      <div className="complete-wrapper2"style={{ display: isVisible1 ? 'block' : 'none' }}>
+      <div className="complete">complete</div>
       </div>
-      <div className="credit-card">Credit card</div>
-      <div className="bank-transfer">Bank transfer</div>
-      <div className="credit-card1">Credit card</div>
-      <div className="paypal">Paypal</div>
-      <div className="credit-card2">Credit card</div>
-      <div className="bank-transfer1">Bank transfer</div>
-      <div className="paypal1">Paypal</div>
-      <div className="credit-card3">Credit card</div>
-      <div className="bank-transfer2">Bank transfer</div>
-      <div className="paypal2">Paypal</div>
-      <div className="credit-card4">Credit card</div>
-      <div className="bank-transfer3">Bank transfer</div>
+      <div className="credit-card"style={{ display: isVisible1 ? 'block' : 'none' }}>Credit card</div>
+      <div className="bank-transfer"style={{ display: isVisible2 ? 'block' : 'none' }}>Bank transfer</div>
+      <div className="credit-card1"style={{ display: isVisible1 ? 'block' : 'none' }}>Credit card</div>
+      <div className="paypal"style={{ display: isVisible ? 'block' : 'none' }}>Paypal</div>
+      <div className="credit-card2"style={{ display: isVisible1 ? 'block' : 'none' }}>Credit card</div>
+      <div className="bank-transfer1"style={{ display: isVisible2 ? 'block' : 'none' }}>Bank transfer</div>
+      <div className="paypal1"style={{ display: isVisible ? 'block' : 'none' }}>Paypal</div>
+      <div className="credit-card3"style={{ display: isVisible2 ? 'block' : 'none' }}>Credit card</div>
+      <div className="bank-transfer2"style={{ display: isVisible1 ? 'block' : 'none' }}>Bank transfer</div>
+      <div className="paypal2"style={{ display: isVisible ? 'block' : 'none' }}>Paypal</div>
+      <div className="credit-card4"style={{ display: isVisible1 ? 'block' : 'none' }}>Credit card</div>
+      <div className="bank-transfer3"style={{ display: isVisible2 ? 'block' : 'none' }}>Bank transfer</div>
       <div className="group-parent">
         <div className="frame-wrapper">
           <div className="customer-statistics-parent">
